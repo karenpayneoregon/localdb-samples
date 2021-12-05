@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if not exist $(TargetDir)\Data mkdir $(TargetDir)\Data" />
+  </Target>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LocalDbLibrary\LocalDbLibrary.csproj" />
+  </ItemGroup>
+
+</Project>
