@@ -11,6 +11,10 @@ This repository has code samples for working with SQL-Server databases using C# 
 | LocalDbLibrary | Code to create a localDb in code |
 | LocalDbLibraryConsoleApp | Test project for LocalDbLibrary |
 
+# Special note
+
+Creating the database in the console app then attempting to in the windows form app or reverse will cause a runtime exception as the database can not be duplicated. So after running one of the projects and want to run the other detach/delete the first database which is easy in SSMS.
+
 # Requires
 
 - SQL Server Express [LocalDB](https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/sql-server-express-localdb?view=sql-server-ver15) installed
