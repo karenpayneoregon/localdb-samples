@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		readme.md = readme.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalWinFormsApp", "LocalWinFormsApp\LocalWinFormsApp.csproj", "{22E90A5C-F138-49F2-83F1-227044EBC785}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{A51F1AA0-764B-412E-A82F-4B245870C1FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A51F1AA0-764B-412E-A82F-4B245870C1FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A51F1AA0-764B-412E-A82F-4B245870C1FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22E90A5C-F138-49F2-83F1-227044EBC785}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22E90A5C-F138-49F2-83F1-227044EBC785}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22E90A5C-F138-49F2-83F1-227044EBC785}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22E90A5C-F138-49F2-83F1-227044EBC785}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -37,6 +43,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{4B26124F-BAB2-4506-B5F5-6131B52348A7} = {ACC69674-D6C5-4CF8-80C6-6A714DAF6451}
 		{A51F1AA0-764B-412E-A82F-4B245870C1FB} = {65643143-058D-4994-BAA7-1C586EF5D9CF}
+		{22E90A5C-F138-49F2-83F1-227044EBC785} = {65643143-058D-4994-BAA7-1C586EF5D9CF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E91042B-6317-4C46-BF05-31F03088830A}

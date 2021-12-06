@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using LocalDbLibrary.Models;
@@ -33,6 +35,15 @@ namespace LocalDbLibrary.Classes
         /// </summary>
         private const string _connectionStringDb = 
             "Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=" + DB_NAME + ";Integrated Security=True";
+
+        public static bool DatabaseFolderExists => Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DataOperations.DB_DIRECTORY));
+        public static string DatabaseFolder => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DataOperations.DB_DIRECTORY);
+
+        public static async Task<bool> DatabaseExists()
+        {
+            var databaseNames = await LocalDatabaseNames();
+            return databaseNames.Any(name => name == DB_NAME);
+        }
 
         /// <summary>
         /// Get list of database names
