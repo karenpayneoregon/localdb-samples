@@ -33,6 +33,7 @@ namespace LocalWinFormsApp
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.CreateButton = new System.Windows.Forms.Button();
             this.ReadButton = new System.Windows.Forms.Button();
+            this.ExistsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,11 +65,22 @@ namespace LocalWinFormsApp
             this.ReadButton.UseVisualStyleBackColor = true;
             this.ReadButton.Click += new System.EventHandler(this.ReadButton_Click);
             // 
+            // ExistsButton
+            // 
+            this.ExistsButton.Location = new System.Drawing.Point(353, 161);
+            this.ExistsButton.Name = "ExistsButton";
+            this.ExistsButton.Size = new System.Drawing.Size(140, 23);
+            this.ExistsButton.TabIndex = 3;
+            this.ExistsButton.Text = "Exists";
+            this.ExistsButton.UseVisualStyleBackColor = true;
+            this.ExistsButton.Click += new System.EventHandler(this.ExistsButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(505, 204);
+            this.Controls.Add(this.ExistsButton);
             this.Controls.Add(this.ReadButton);
             this.Controls.Add(this.CreateButton);
             this.Controls.Add(this.dataGridView1);
@@ -86,6 +98,7 @@ namespace LocalWinFormsApp
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button CreateButton;
         private System.Windows.Forms.Button ReadButton;
+        private System.Windows.Forms.Button ExistsButton;
     }
 }
 

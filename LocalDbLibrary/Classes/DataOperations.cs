@@ -28,7 +28,7 @@ namespace LocalDbLibrary.Classes
         /// <summary>
         /// Name of database
         /// </summary>
-        public const string DB_NAME      = "AppData";
+        public const string DB_NAME = "AppData";
 
         /// <summary>
         /// Connection string for <see cref="DB_NAME"/>
@@ -36,9 +36,21 @@ namespace LocalDbLibrary.Classes
         private const string _connectionStringDb = 
             "Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=" + DB_NAME + ";Integrated Security=True";
 
+        private const string _connectionStringMaster = 
+            "Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True";
+
         public static bool DatabaseFolderExists => Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DataOperations.DB_DIRECTORY));
         public static string DatabaseFolder => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DataOperations.DB_DIRECTORY);
 
+        /// <summary>
+        /// Validate the database exists
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// Or call this
+        /// DECLARE @DbName AS nvarchar(50) = 'AppData'
+        /// SELECT name FROM sys.databases WHERE Name = @DbName
+        /// </remarks>
         public static async Task<bool> DatabaseExists()
         {
             var databaseNames = await LocalDatabaseNames();
@@ -51,15 +63,13 @@ namespace LocalDbLibrary.Classes
         /// <returns></returns>
         public static async Task<List<string>> LocalDatabaseNames()
         {
-
             List<string> list = new();
 
             return await Task.Run(async () =>
             {
                 
-                await using var cn = new SqlConnection(_connectionStringDb);
-
-                await using var cmd = new SqlCommand($"SELECT name FROM sys.databases WHERE Name NOT IN ('master','model','msdb') ORDER BY Name;", cn);
+                await using var cn = new SqlConnection(_connectionStringMaster);
+                await using var cmd = new SqlCommand("SELECT name FROM sys.databases WHERE Name NOT IN ('master','model','msdb') ORDER BY Name;", cn);
 
                 cn.Open();
                 var reader = await cmd.ExecuteReaderAsync();
@@ -81,7 +91,7 @@ namespace LocalDbLibrary.Classes
         /// </summary>
         public static DataTable ReadDataTable()
         {
-            DataTable table = new DataTable();
+            DataTable table = new ();
 
             using var cn = new SqlConnection(_connectionStringDb);
             using var cmd = new SqlCommand($"SELECT Identifier, CompanyName, ContactName  FROM Customer", cn);
@@ -145,7 +155,6 @@ namespace LocalDbLibrary.Classes
                 cmd.CommandText = customer;
                 cmd.ExecuteNonQuery();
             }
-
         }
 
         /// <summary>
@@ -157,8 +166,6 @@ namespace LocalDbLibrary.Classes
         /// <returns></returns>
         public static async Task<bool> CreateDatabase()
         {
-
-            string connectionStringMaster = $"Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True";
 
             string dbName = DB_NAME;
 
@@ -200,7 +207,7 @@ namespace LocalDbLibrary.Classes
 
                 
                 // ReSharper disable once UseAwaitUsing
-                using var cn = new SqlConnection( connectionStringMaster );
+                using var cn = new SqlConnection(_connectionStringMaster);
 
                 // ReSharper disable once UseAwaitUsing
                 using var cmd = new SqlCommand($"CREATE DATABASE {dbName} ON (NAME = N'{dbName}', FILENAME = '{dbFileName}')", cn);
@@ -241,12 +248,11 @@ namespace LocalDbLibrary.Classes
             {
                 try
                 {
-                    string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True";
 
                     if (File.Exists(dbName))
                     {
                         // ReSharper disable once UseAwaitUsing
-                        using var cn = new SqlConnection(connectionString);
+                        using var cn = new SqlConnection(_connectionStringMaster);
 
                         cn.Open();
 

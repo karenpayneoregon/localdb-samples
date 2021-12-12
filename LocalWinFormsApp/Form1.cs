@@ -60,5 +60,17 @@ namespace LocalWinFormsApp
                 MessageBox.Show(@"Use create button");
             }
         }
+
+        private async void ExistsButton_Click(object sender, EventArgs e)
+        {
+            if (await DataOperations.DatabaseExists())
+            {
+                MessageBox.Show(@$"{DataOperations.DB_NAME} exists");
+            }
+            else
+            {
+                MessageBox.Show(@$"{DataOperations.DB_NAME} does not exists");
+            }
+        }
     }
 }
