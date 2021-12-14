@@ -6,13 +6,18 @@ This repository has code samples for working with SQL-Server [LocalDb](https://d
 
 Microsoft SQL Server Express LocalDB is a feature of SQL Server Express targeted to developers. 
 
+> LocalDB is a special, low impact version of the SQL Server engine, that is not installed as a Windows Service, but launched (made to run) on demand by the ADO.NET client opening a connection to it. It is intended for single user scenarios, and not for any production use - for production you should use SQL Server Express (or higher)
+
+[ErikEJ](http://erikej.blogspot.com/2011/01/comparison-of-sql-server-compact-4-and.html)
+
+
 ![image](assets/screen1.png)
 
 - **12/05/2021** Only one code sample, how to create a localDb in code. 
 - **12/14/2021** Added code in LocalDbLibraryConsoleApp to create a LocalDb version of NorthWind database
-  - Drop database code
-  - Create database code
-  - Populate tables
+- **12/14/2021** Added Entity Framework Core 5 class project which relies on LocalDbLibraryConsoleApp to first create the database.
+ 
+
 
 | Project  | Description
 | :--- | :--- |
