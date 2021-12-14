@@ -246,9 +246,6 @@ namespace LocalDbLibrary.Classes
         public static void DropNorthWindDatabase()
         {
             string dbName = "NorthWind2020";
-            string mdfFilename = $"{dbName}.mdf";
-            string outputFolder = @"C:\OED\Dotnetland\SqlServerLocalDatabases";
-
 
             using var cn = new SqlConnection(_connectionStringMaster);
             using var cmd = new SqlCommand();
