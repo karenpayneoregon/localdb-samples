@@ -2,7 +2,9 @@
 
 # Working with SQL-Server Express-LocalDb
 
-This repository has code samples for working with SQL-Server databases using C# 9 (or higher), .NET Core 5 (or higher). Each code sample will have a readme file explaining purpose and details on how to use plus any caveats.
+This repository has code samples for working with SQL-Server [LocalDb](https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/sql-server-express-localdb?view=sql-server-ver15) databases using C# 9 (or higher), .NET Core 5 (or higher). Each code sample will have a readme file explaining purpose and details on how to use plus any caveats.
+
+Microsoft SQL Server Express LocalDB is a feature of SQL Server Express targeted to developers. 
 
 ![image](assets/screen1.png)
 
@@ -15,6 +17,7 @@ This repository has code samples for working with SQL-Server databases using C# 
 | Project  | Description
 | :--- | :--- |
 | LocalDbLibrary | Code to create a localDb in code |
+| NorthWindLibrary | Uses NorthWind database created in project LocalDbLibraryConsoleApp |
 | LocalDbLibraryConsoleApp | Test project for LocalDbLibrary |
 
 # Special note

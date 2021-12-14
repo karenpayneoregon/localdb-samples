@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using LocalDbLibrary.Classes;
+using NorthWindLibrary.Data;
 
 namespace LocalDbLibraryConsoleApp
 {
@@ -11,6 +12,7 @@ namespace LocalDbLibraryConsoleApp
     {
         static async Task Main(string[] args)
         {
+
             Debug.WriteLine("Dropping NorthWind");
             DataOperations.DropNorthWindDatabase();
 
@@ -91,6 +93,16 @@ namespace LocalDbLibraryConsoleApp
             foreach (var customer in customers)
             {
                 Debug.WriteLine($"{customer.Identifier,-4:D2}{customer.CompanyName,-25}{customer.ContactName}");
+            }
+        }
+
+        private static void EntityFrameworkSimple()
+        {
+            using var context = new Northwind2020Context();
+            var list = context.Categories.ToList();
+            foreach (var category in list)
+            {
+                Debug.WriteLine(category.CategoryName);
             }
         }
 

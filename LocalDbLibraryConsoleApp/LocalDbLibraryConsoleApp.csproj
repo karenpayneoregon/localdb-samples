@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LocalDbLibrary\LocalDbLibrary.csproj" />
+    <ProjectReference Include="..\NorthWindLibrary\NorthWindLibrary.csproj" />
   </ItemGroup>
 
 </Project>
