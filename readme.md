@@ -6,7 +6,7 @@ This repository has code samples for working with SQL-Server databases using C# 
 
 ![image](assets/screen1.png)
 
-- **12/5/2021** Only one code sample, how to create a localDb in code. 
+- **12/05/2021** Only one code sample, how to create a localDb in code. 
 - **12/14/2021** Added code in LocalDbLibraryConsoleApp to create a LocalDb version of NorthWind database
   - Drop database code
   - Create database code
