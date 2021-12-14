@@ -94,7 +94,7 @@ namespace LocalDbLibrary.Classes
         /// <summary>
         /// Read Customer data into a <see cref="DataTable"/>
         /// </summary>
-        public static DataTable ReadDataTable()
+        public static DataTable ReadAppDataDataTable()
         {
             DataTable table = new ();
 
@@ -111,7 +111,7 @@ namespace LocalDbLibrary.Classes
         /// <summary>
         /// Read <see cref="Customer"/> into a list
         /// </summary>
-        public static List<Customer> ReadList()
+        public static List<Customer> ReadAppDataList()
         {
             List<Customer> list = new();
 

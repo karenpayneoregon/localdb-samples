@@ -52,7 +52,7 @@ namespace LocalWinFormsApp
 
             if (await DataOperations.AppDataDatabaseExists())
             {
-                dataGridView1.DataSource = DataOperations.ReadList();
+                dataGridView1.DataSource = DataOperations.ReadAppDataList();
                 dataGridView1.ExpandColumns();
             }
             else

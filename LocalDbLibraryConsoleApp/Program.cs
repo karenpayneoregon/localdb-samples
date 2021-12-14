@@ -86,7 +86,7 @@ namespace LocalDbLibraryConsoleApp
         /// </summary>
         private static void ReadCustomers()
         {
-            var customers = DataOperations.ReadList();
+            var customers = DataOperations.ReadAppDataList();
 
             foreach (var customer in customers)
             {
