@@ -28,13 +28,18 @@ namespace LocalDbLibrary.Classes
         /// <summary>
         /// Name of database
         /// </summary>
-        public const string DB_NAME = "AppData";
+        public const string APP_DATA_DB_NAME = "AppData";
+
+        public const string NORTH_DB_NAME = "NorthWind2020";
 
         /// <summary>
-        /// Connection string for <see cref="DB_NAME"/>
+        /// Connection string for <see cref="APP_DATA_DB_NAME"/>
         /// </summary>
-        private const string _connectionStringDb = 
-            "Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=" + DB_NAME + ";Integrated Security=True";
+        private const string _connectionStringAppData = 
+            "Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=" + APP_DATA_DB_NAME + ";Integrated Security=True";
+
+        private const string _connectionStringNorthWind =
+            "Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=" + NORTH_DB_NAME + ";Integrated Security=True";
 
         private const string _connectionStringMaster = 
             "Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True";
@@ -54,7 +59,7 @@ namespace LocalDbLibrary.Classes
         public static async Task<bool> DatabaseExists()
         {
             var databaseNames = await LocalDatabaseNames();
-            return databaseNames.Any(name => name == DB_NAME);
+            return databaseNames.Any(name => name == APP_DATA_DB_NAME);
         }
 
         /// <summary>
@@ -93,7 +98,7 @@ namespace LocalDbLibrary.Classes
         {
             DataTable table = new ();
 
-            using var cn = new SqlConnection(_connectionStringDb);
+            using var cn = new SqlConnection(_connectionStringAppData);
             using var cmd = new SqlCommand($"SELECT Identifier, CompanyName, ContactName  FROM Customer", cn);
             
             cn.Open();
@@ -110,7 +115,7 @@ namespace LocalDbLibrary.Classes
         {
             List<Customer> list = new();
 
-            using var cn = new SqlConnection(_connectionStringDb);
+            using var cn = new SqlConnection(_connectionStringAppData);
             using var cmd = new SqlCommand($"SELECT Identifier, CompanyName, ContactName  FROM Customer", cn);
 
             cn.Open();
@@ -145,7 +150,7 @@ namespace LocalDbLibrary.Classes
                 "INSERT INTO Customer (CompanyName,ContactName) VALUES ('Bottom-Dollar Markets', 'Elizabeth Lincoln')"
             };
 
-            using var cn = new SqlConnection( _connectionStringDb );
+            using var cn = new SqlConnection( _connectionStringAppData );
             using var cmd = new SqlCommand() { Connection = cn };
 
             cn.Open();
@@ -157,6 +162,93 @@ namespace LocalDbLibrary.Classes
             }
         }
 
+        public static async Task<(SqlResult result, Exception exception)> CreateNorthWindDatabase()
+        {
+            string dbName = "NorthWind2020";
+            // ReSharper disable once AssignNullToNotNullAttribute
+            string outputFolder = @"C:\OED\Dotnetland\SqlServerLocalDatabases";
+
+
+            if (!Directory.Exists(outputFolder))
+            {
+                Directory.CreateDirectory(outputFolder);
+            }
+
+            string mdfFilename = $"{dbName}.mdf";
+            string dbFileName = Path.Combine(outputFolder, mdfFilename);
+
+            if (File.Exists(dbFileName))
+            {
+                return (SqlResult.AlreadyExists, null);
+            }
+
+
+            string createTablesCommand = await File.ReadAllTextAsync(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Scripts", "NorthWindCreateTables.sql"));
+
+            try
+            {
+                // ReSharper disable once UseAwaitUsing
+                using var cn = new SqlConnection(_connectionStringMaster);
+                // ReSharper disable once UseAwaitUsing
+                using var cmd = new SqlCommand($"CREATE DATABASE {dbName} ON (NAME = N'{dbName}', FILENAME = '{dbFileName}')", cn);
+
+
+                cn.Open();
+                cmd.ExecuteNonQuery();
+
+                await Task.Delay(1000);
+
+                cn.Close();
+                cn.ConnectionString = _connectionStringNorthWind;
+
+                cmd.CommandText = createTablesCommand;
+                cn.Open();
+                cmd.ExecuteNonQuery();
+
+                string populateTablesCommand = await File.ReadAllTextAsync(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Scripts", "NorthWindPopulateTables.sql"));
+                cmd.CommandText = populateTablesCommand;
+        
+                cmd.ExecuteNonQuery();
+
+                return (SqlResult.Success, null);
+            }
+            catch (Exception error)
+            {
+                return (SqlResult.Failed, error);
+            }
+
+        }
+
+        /// <summary>
+        /// Run only if the database exists as there are no checks
+        /// to see if the database exists.
+        /// </summary>
+        public static void DropNorthWindDatabase()
+        {
+            string dbName = "NorthWind2020";
+            string mdfFilename = $"{dbName}.mdf";
+            string outputFolder = @"C:\OED\Dotnetland\SqlServerLocalDatabases";
+
+
+            using var cn = new SqlConnection(_connectionStringMaster);
+            using var cmd = new SqlCommand();
+
+            var sqlCommandText = $"ALTER DATABASE {dbName} SET SINGLE_USER WITH ROLLBACK IMMEDIATE;DROP DATABASE [{dbName}]";
+
+            cmd.Connection = cn;
+            cmd.CommandText = sqlCommandText;
+            try
+            {
+                cn.Open();
+                cmd.ExecuteNonQuery();
+                Debug.WriteLine("Dropped");
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine($"Well we failed with\n{exception.Message}");
+            }
+
+        }
         /// <summary>
         /// Create database in Data folder under the application folder
         /// ASSUMES Data folder exists
@@ -167,7 +259,7 @@ namespace LocalDbLibrary.Classes
         public static async Task<bool> CreateDatabase()
         {
 
-            string dbName = DB_NAME;
+            string dbName = APP_DATA_DB_NAME;
 
             // ReSharper disable once AssignNullToNotNullAttribute
             string outputFolder = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), DB_DIRECTORY);
@@ -216,7 +308,7 @@ namespace LocalDbLibrary.Classes
                 cmd.ExecuteNonQuery();
                 cn.Close();
 
-                cn.ConnectionString = _connectionStringDb;
+                cn.ConnectionString = _connectionStringAppData;
                 cmd.CommandText = createTableCommand;
                 cn.Open();
                 cmd.ExecuteNonQuery();

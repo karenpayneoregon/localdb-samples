@@ -11,7 +11,21 @@ namespace LocalDbLibraryConsoleApp
     {
         static async Task Main(string[] args)
         {
-            await Version2();
+            Debug.WriteLine("Dropping NorthWind");
+            DataOperations.DropNorthWindDatabase();
+            Debug.WriteLine("Creating/populating");
+
+            var (result, exception) = await DataOperations.CreateNorthWindDatabase();
+            if (result == SqlResult.Success)
+            {
+                Debug.WriteLine("Finished");
+            }else if (result == SqlResult.AlreadyExists)
+            {
+                Debug.WriteLine("Database already exists");
+            }else if (result == SqlResult.Failed)
+            {
+                Debug.WriteLine(exception.Message);
+            }
         }
 
         /// <summary>
@@ -23,7 +37,7 @@ namespace LocalDbLibraryConsoleApp
             // get names of databases under master
             var databaseNames = await DataOperations.LocalDatabaseNames();
             // check if our database exists
-            var databaseExists = databaseNames.Any(name => name == DataOperations.DB_NAME);
+            var databaseExists = databaseNames.Any(name => name == DataOperations.APP_DATA_DB_NAME);
 
             if (databaseExists)
             {

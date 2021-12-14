@@ -65,11 +65,11 @@ namespace LocalWinFormsApp
         {
             if (await DataOperations.DatabaseExists())
             {
-                MessageBox.Show(@$"{DataOperations.DB_NAME} exists");
+                MessageBox.Show(@$"{DataOperations.APP_DATA_DB_NAME} exists");
             }
             else
             {
-                MessageBox.Show(@$"{DataOperations.DB_NAME} does not exists");
+                MessageBox.Show(@$"{DataOperations.APP_DATA_DB_NAME} does not exists");
             }
         }
     }
