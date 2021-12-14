@@ -242,10 +242,7 @@ namespace LocalDbLibrary.Classes
 
         }
 
-        /// <summary>
-        /// Run only if the database exists as there are no checks
-        /// to see if the database exists.
-        /// </summary>
+
         public static void DropNorthWindDatabase()
         {
             string dbName = "NorthWind2020";
