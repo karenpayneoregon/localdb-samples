@@ -56,7 +56,7 @@ namespace LocalDbLibrary.Classes
         /// DECLARE @DbName AS nvarchar(50) = 'AppData'
         /// SELECT name FROM sys.databases WHERE Name = @DbName
         /// </remarks>
-        public static async Task<bool> DatabaseExists()
+        public static async Task<bool> AppDataDatabaseExists()
         {
             var databaseNames = await LocalDatabaseNames();
             return databaseNames.Any(name => name == APP_DATA_DB_NAME);

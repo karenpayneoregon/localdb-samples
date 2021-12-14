@@ -50,7 +50,7 @@ namespace LocalWinFormsApp
 
             await NullifyGrid();
 
-            if (await DataOperations.DatabaseExists())
+            if (await DataOperations.AppDataDatabaseExists())
             {
                 dataGridView1.DataSource = DataOperations.ReadList();
                 dataGridView1.ExpandColumns();
@@ -63,7 +63,7 @@ namespace LocalWinFormsApp
 
         private async void ExistsButton_Click(object sender, EventArgs e)
         {
-            if (await DataOperations.DatabaseExists())
+            if (await DataOperations.AppDataDatabaseExists())
             {
                 MessageBox.Show(@$"{DataOperations.APP_DATA_DB_NAME} exists");
             }
