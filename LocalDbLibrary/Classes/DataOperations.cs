@@ -162,7 +162,29 @@ namespace LocalDbLibrary.Classes
             }
         }
 
+        public static List<Product> NorthWindProducts()
+        {
+            List<Product> list = new();
+            //_connectionStringNorthWind
+            using var cn = new SqlConnection(_connectionStringNorthWind);
+            using var cmd = new SqlCommand() { Connection = cn };
 
+            cmd.CommandText = 
+                "SELECT P.ProductID, P.ProductName, S.CompanyName " + 
+                "FROM Products AS P INNER JOIN Suppliers AS S ON P.SupplierID = S.SupplierID " +
+                "WHERE P.CategoryID = 2 AND P.ProductID < 9";
+
+            cn.Open();
+
+            var reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                list.Add(new Product() {ProductID = reader.GetInt32(0), ProductName = reader.GetString(1), SupplierName = reader.GetString(2)});
+            }
+
+            return list;
+        }
         public static async Task<(SqlResult result, Exception exception)> CreateNorthWindDatabase()
         {
             string dbName = "NorthWind2020";

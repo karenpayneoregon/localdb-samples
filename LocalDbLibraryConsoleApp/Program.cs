@@ -13,12 +13,21 @@ namespace LocalDbLibraryConsoleApp
         {
             Debug.WriteLine("Dropping NorthWind");
             DataOperations.DropNorthWindDatabase();
+
             Debug.WriteLine("Creating/populating");
+            
 
             var (result, exception) = await DataOperations.CreateNorthWindDatabase();
             if (result == SqlResult.Success)
             {
-                Debug.WriteLine("Finished");
+                Debug.WriteLine($"Reading short list of {nameof(Product)}");
+                Debug.WriteLine("");
+                var products = DataOperations.NorthWindProducts();
+
+                foreach (var product in products)
+                {
+                    Debug.WriteLine($"{product.ProductID,-4}{product.ProductName}");
+                }
             }else if (result == SqlResult.AlreadyExists)
             {
                 Debug.WriteLine("Database already exists");
