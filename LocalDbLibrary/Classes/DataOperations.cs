@@ -162,6 +162,7 @@ namespace LocalDbLibrary.Classes
             }
         }
 
+
         public static async Task<(SqlResult result, Exception exception)> CreateNorthWindDatabase()
         {
             string dbName = "NorthWind2020";
@@ -384,4 +385,6 @@ namespace LocalDbLibrary.Classes
 
         }
     }
+
+
 }

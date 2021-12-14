@@ -10,14 +10,14 @@
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 
-CREATE TABLE [dbo].[Cateries](
-	[CateryID] [int] IDENTITY(1,1) NOT NULL,
-	[CateryName] [nvarchar](15) NOT NULL,
+CREATE TABLE [dbo].[Categories](
+	[CategoryID] [int] IDENTITY(1,1) NOT NULL,
+	[CategoryName] [nvarchar](15) NOT NULL,
 	[Description] [ntext] NULL,
 	[Picture] [image] NULL,
- CONSTRAINT [PK_Cateries] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_Categories] PRIMARY KEY CLUSTERED 
 (
-	[CateryID] ASC
+	[CategoryID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
@@ -161,7 +161,7 @@ CREATE TABLE [dbo].[Products](
 	[ProductID] [int] IDENTITY(1,1) NOT NULL,
 	[ProductName] [nvarchar](40) NOT NULL,
 	[SupplierID] [int] NULL,
-	[CateryID] [int] NULL,
+	[CategoryID] [int] NULL,
 	[QuantityPerUnit] [nvarchar](20) NULL,
 	[UnitPrice] [money] NULL,
 	[UnitsInStock] [smallint] NULL,
