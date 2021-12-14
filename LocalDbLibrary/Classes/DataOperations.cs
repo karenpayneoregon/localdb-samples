@@ -265,7 +265,7 @@ namespace LocalDbLibrary.Classes
             }
             catch (Exception exception)
             {
-                Debug.WriteLine($"Well we failed with\n{exception.Message}");
+                //Debug.WriteLine($"Well we failed with\n{exception.Message}");
             }
 
         }
