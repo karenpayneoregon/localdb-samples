@@ -4,6 +4,12 @@
 
 This repository has code samples for working with SQL-Server [LocalDb](https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/sql-server-express-localdb?view=sql-server-ver15) databases using C# 9 (or higher), .NET Core 5 (or higher). Each code sample will have a readme file explaining purpose and details on how to use plus any caveats.
 
+# Recommended
+
+Expected developer experience level, has a decent understanding for working with SQL and Entity Framework Core.
+
+---
+
 Microsoft SQL Server Express LocalDB is a feature of SQL Server Express targeted to developers. 
 
 > LocalDB is a special, low impact version of the SQL Server engine, that is not installed as a Windows Service, but launched (made to run) on demand by the ADO.NET client opening a connection to it. It is intended for single user scenarios, and not for any production use - for production you should use SQL Server Express (or higher)
